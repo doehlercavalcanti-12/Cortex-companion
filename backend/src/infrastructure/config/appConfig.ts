@@ -12,6 +12,7 @@ type AppConfig = {
   auth: {
     jwtSecret: string;
     tokenTtl: number;
+    refreshTtl: number;
   };
   database: {
     url: string;
@@ -56,7 +57,7 @@ const schema: Schema<AppConfig> = {
     jwtSecret: {
       doc: 'Segredo para assinar tokens JWT',
       format: String,
-      default: '',
+      default: 'insecure-development-secret',
       env: 'JWT_SECRET',
       sensitive: true,
     },
@@ -65,6 +66,12 @@ const schema: Schema<AppConfig> = {
       format: Number,
       default: 900,
       env: 'JWT_TTL',
+    },
+    refreshTtl: {
+      doc: 'TTL dos tokens de atualização',
+      format: Number,
+      default: 604800,
+      env: 'JWT_REFRESH_TTL',
     },
   },
   database: {

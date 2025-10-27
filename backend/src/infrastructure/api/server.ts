@@ -5,6 +5,7 @@ import router from './routes';
 import config from '../config/appConfig';
 import logger from '../logger';
 import { ZodError } from 'zod';
+import { ApplicationError } from '../../domain/errors/ApplicationError';
 
 export const createServer = () => {
   const app = express();
@@ -20,6 +21,10 @@ export const createServer = () => {
           message: 'Dados inválidos fornecidos na requisição.',
           issues: err.issues,
         });
+      }
+
+      if (err instanceof ApplicationError) {
+        return res.status(err.statusCode).json({ message: err.message });
       }
 
       if (err instanceof Error) {

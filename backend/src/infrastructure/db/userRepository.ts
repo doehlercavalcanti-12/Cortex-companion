@@ -4,6 +4,9 @@ import { User } from '../../domain/model/User';
 const inMemoryUsers: User[] = [];
 
 export const userRepository: UserRepository = {
+  async findById(id: string): Promise<User | null> {
+    return inMemoryUsers.find((user) => user.id === id) ?? null;
+  },
   async findByEmail(email: string): Promise<User | null> {
     return inMemoryUsers.find((user) => user.email === email) ?? null;
   },
