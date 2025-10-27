@@ -2,6 +2,7 @@ import { UserService } from '../../src/domain/service/UserService';
 import { UserRepository } from '../../src/application/interfaces/storage/UserRepository';
 
 const createRepository = (): UserRepository => ({
+  findById: jest.fn(),
   findByEmail: jest.fn(),
   create: jest.fn(),
 });
