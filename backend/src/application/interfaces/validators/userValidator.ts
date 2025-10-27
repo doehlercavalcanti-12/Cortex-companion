@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import isEmail from 'validator/lib/isEmail';
+import validatorLib from 'validator';
 
 export const validator = z
   .object({
@@ -7,7 +7,7 @@ export const validator = z
     email: z
       .string()
       .email()
-      .refine((value) => isEmail(value), 'E-mail inválido'),
+      .refine((value) => validatorLib.isEmail(value), 'E-mail inválido'),
     password: z.string().min(10).max(128),
   })
   .strict();

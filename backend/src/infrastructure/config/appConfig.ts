@@ -1,6 +1,7 @@
 import convict, { Schema } from 'convict';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import validator from 'validator';
 
 type AppConfig = {
   env: 'production' | 'development' | 'test';
@@ -20,6 +21,15 @@ type AppConfig = {
     max: number;
   };
 };
+
+convict.addFormat({
+  name: 'ipaddress',
+  validate(value: unknown) {
+    if (typeof value !== 'string' || !validator.isIP(value)) {
+      throw new Error('O host da API deve ser um endereço IP válido.');
+    }
+  },
+});
 
 const schema: Schema<AppConfig> = {
   env: {
@@ -85,7 +95,7 @@ const schema: Schema<AppConfig> = {
 const config = convict<AppConfig>(schema);
 
 const env = config.get('env');
-const envFile = join(__dirname, `../../../config/${env}.json`);
+const envFile = join(process.cwd(), 'config', `${env}.json`);
 
 try {
   const envConfig = JSON.parse(readFileSync(envFile, 'utf-8'));
