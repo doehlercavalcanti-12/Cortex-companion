@@ -1,6 +1,6 @@
 # Cortex Companion Monorepo
 
-Projeto full stack moderno unindo aplicativo React Native e API Node.js com TypeScript, seguindo Clean Architecture e práticas de segurança OWASP Top 10.
+Projeto full stack moderno unindo aplicativo React Native, interface web em React e API Node.js com TypeScript, seguindo Clean Architecture e práticas de segurança OWASP Top 10.
 
 ## Estrutura
 
@@ -18,6 +18,17 @@ frontend/
     constants/
     features/
     assets/
+    tests/
+frontend-web/
+  package.json
+  vite.config.js
+  src/
+    components/
+    screens/
+    hooks/
+    services/
+    constants/
+    styles/
     tests/
 backend/
   package.json
